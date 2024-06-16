@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalTech</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- First Screen -->
+        <div class="screen" id="screen1">
+            <h1>Veja sua <span class="highlight">Localização</span></h1>
+            <div class="image-container">
+                <img src="https://via.placeholder.com/150" alt="Character on Map">
+            </div>
+            <p>O <span class="highlight">LocalTech</span> é um aplicativo intuitivo que simplifica a localização, ajudando você a encontrar lugares próximos, traçar rotas eficientes e descobrir.</p>
+            <button onclick="showScreen2()">Ver minha localização</button>
+        </div>
+        
+        <!-- Second Screen -->
+        <div class="screen" id="screen2" style="display: none;">
+            <h1>Veja sua <span class="highlight">Localização</span></h1>
+            <div class="map-container">
+                <img src="https://via.placeholder.com/300" alt="Map">
+            </div>
+            <div class="location-info">
+                <p>Localização Atual:</p>
+                <p>Latitude: 0.00</p>
+                <p>Longitude: 0.00</p>
+            </div>
+            <button onclick="getLocation()">Obter localização</button>
+        </div>
+    </div>
+
+    <script>
+        function showScreen2() {
+            document.getElementById('screen1').style.display = 'none';
+            document.getElementById('screen2').style.display = 'block';
+        }
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        function showPosition(position) {
+            document.querySelector('.location-info').innerHTML = `
+                <p>Localização Atual:</p>
+                <p>Latitude: ${position.coords.latitude}</p>
+                <p>Longitude: ${position.coords.longitude}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
